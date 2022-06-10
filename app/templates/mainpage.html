@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if allitems %}
+    <ul>
+        {% for data in allitems %}
+            <li><h1>{{data.name}}</h1></li>
+            <a class="btn btn-consult" href="{{url_for('view', id=data.id)}}">View</a>
+            <a class="btn btn-consult" href="{{url_for('edit', id=data.id)}}">Edit</a>
+        {% endfor %}
+    </ul>
+{% else %}
+
+{% endif %}
+{% endblock %}

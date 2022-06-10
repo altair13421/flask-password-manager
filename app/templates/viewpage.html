@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Data in {{data.name}}</h1>
+<p>Username: {{data.username}}</p> <a class="btn btn-consult" href="{{url_for('copydata', data=data.username, id=data.id)}}">Copy</a>
+<p>Password: {{data.password}}</p> <a class="btn btn-consult" href="{{url_for('copydata', data=data.password, id=data.id)}}">Copy</a>
+<p>URL: {{data.url}}</p> <a class="btn btn-consult" href="{{url_for('copydata', data=data.url, id=data.id)}}">Copy</a>
+<p>Description: {{data.description}}</p>
+<a class="btn btn-consult" href="{{url_for('delete', id=data.id)}}">Delete ENTRY</a>
+
+{% endblock %}
