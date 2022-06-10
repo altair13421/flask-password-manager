@@ -89,31 +89,23 @@ def main():
 def add_entry():
     form = EntryForm()
     id = None
-    if request.args:
-        username = request.args.get('username')
-        password = request.args.get('password')
-        url = request.args.get('url')
-        name = request.args.get('name')
-        description = request.args.get('description')
-        id = request.args.get('id')
-        if username != '' and password != '' and name != '' and url != '' and description != '':
-            form.username.data = username
-            form.password.data = password
-            form.url.data = url
-            form.name.data = name
-            form.description.data = description
-        
+    # if request.args:
+    #     username = request.args.get('username')
+    #     password = request.args.get('password')
+    #     url = request.args.get('url')
+    #     name = request.args.get('name')
+    #     description = request.args.get('description')
+    #     id = request.args.get('id')
+
     if form.validate_on_submit():
         tosave = Passwords(
             username = form.username.data,
             password = form.password.data,
             name = form.name.data,
             url = form.url.data,
-            description = form.url.data,
+            description = form.description.data,
             userid = current_user.id
         )
-        if id != None:
-            delete(id, edit=True)
         db.session.add(tosave)
         db.session.commit()
         flash('Entry Saved')
@@ -125,7 +117,8 @@ def add_entry():
         homelink=url_for('main'),
         form = form, 
         entry_1="Discard", 
-        entry_1_link = url_for('main'), )
+        entry_1_link = url_for('main'), 
+    )
 
 @app.route('/view/<id>', methods=['GET', 'POST'])
 @login_required
@@ -143,17 +136,9 @@ def view(id):
 @app.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    data = Passwords.query.get(id)
-    return redirect(url_for(
-        'add_entry',
-        username = data.username,
-        password = data.password,
-        url = data.url,
-        name = data.name,
-        description = data.description,
-        id = data.id
-    ))
-    pass
+        flash('For Editing. Delete First, and Re add')
+        return redirect(url_for('main'))
+
 
 @app.route('/delete/<id>', methods=['GET', 'POST'])
 @login_required
