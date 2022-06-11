@@ -104,7 +104,7 @@ def add_entry():
             name = form.name.data,
             url = form.url.data,
             description = form.description.data,
-            userid = current_user.id
+            user = current_user
         )
         db.session.add(tosave)
         db.session.commit()
